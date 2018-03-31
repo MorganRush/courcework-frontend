@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
-import  players from './component/players'
+import  contracts from './component/contracts'
 
 export default combineReducers({
-    players
+    contracts
 })
