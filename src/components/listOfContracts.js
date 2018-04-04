@@ -2,16 +2,72 @@ import React, { Component } from 'react';
 import Img from 'react-image';
 import { connect } from 'react-redux';
 import './css/listOfContracts.css';
+import $ from "jquery";
+import contracts from "../reducer/component/contracts";
+
+const urlOnDataLoad = "http://localhost:8000/main/contracts/";
+const urlOnFind = "http://localhost:8000/main/contracts/like/";
 
 class ListOfContract extends Component{
-    constructor(props){
-        super(props);
+    constructor() {
+        super();
+        this.state = {
+            offset: 0,
+            limit: 10,
+        };
+    }
+
+    componentDidMount(){
+        this.addContracts();
+    }
+
+    addContracts(){
+        $.ajax({
+            url: (urlOnDataLoad + this.state.limit + '/' + this.state.offset),
+            dataType: 'json',
+            cache: false,
+            success: function(data) {
+                data.forEach((contract) => {
+                    this.props.onAddContracts(contract);
+                });
+                this.state.offset++;
+            }.bind(this),
+            error: function(xhr, status, err) {
+                console.error(urlOnDataLoad, status, err.toString());
+            }.bind(this)
+        });
+    }
+
+    findContracts(){
+        this.props.onDeleteContracts();
+        if (this.findInput.value === "" || this.findInput.value === null){
+            this.state.offset = 0;
+            this.addContracts();
+            return;
+        }
+        $.ajax({
+            url: (urlOnFind + this.state.limit + '/' + this.findInput.value),
+            dataType: 'json',
+            cache: false,
+            success: function(data) {
+                data.forEach((contract) => {
+                    this.props.onAddContracts(contract);
+                });
+                this.state.offset++;
+            }.bind(this),
+            error: function(xhr, status, err) {
+                console.error(urlOnDataLoad, status, err.toString());
+            }.bind(this)
+        });
     }
 
     render() {
         console.log(this.props.store);
         return (
             <div className="ListOfContract">
+                <label>find</label>
+                <input type="text" ref={(input) => {this.findInput = input}}
+                       onChange={this.findContracts.bind(this)}/>
                 <ul>
                     <li>
                         <div class="player-item">
@@ -28,7 +84,7 @@ class ListOfContract extends Component{
                       </span>
                         </div>
                     </li>
-                    {this.props.store.contracts.map((contract) =>
+                    {this.props.contracts.map((contract) =>
                         <li>
                             <div class="player-item">
                                 <a href="/" class="display-block padding-0">
@@ -70,6 +126,7 @@ class ListOfContract extends Component{
                         </li>
                     )}
                 </ul>
+                <button onClick={this.addContracts.bind(this)}>More</button>
             </div>
         );
     }
@@ -77,7 +134,14 @@ class ListOfContract extends Component{
 
 export default connect(
     state => ({
-        store: state
+        contracts: state.contracts
     }),
-    dispatch => ({})
+    dispatch => ({
+        onAddContracts: (contracts) => {
+            dispatch({ type: 'ADD_CONTRACTS', payload: contracts });
+        },
+        onDeleteContracts: () => {
+            dispatch({ type: 'DELETE_CONTRACTS' });
+        }
+    })
 )(ListOfContract);
