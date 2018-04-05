@@ -3,7 +3,6 @@ import Img from 'react-image';
 import { connect } from 'react-redux';
 import './css/listOfContracts.css';
 import $ from "jquery";
-import contracts from "../reducer/component/contracts";
 
 const urlOnDataLoad = "http://localhost:8000/main/contracts/";
 const urlOnFind = "http://localhost:8000/main/contracts/like/";
@@ -27,6 +26,9 @@ class ListOfContract extends Component{
             dataType: 'json',
             cache: false,
             success: function(data) {
+                console.log(data);
+                data.sort((contract1, contract2) => { return contract2.player.reiting - contract1.player.reiting });
+                console.log(data);
                 data.forEach((contract) => {
                     this.props.onAddContracts(contract);
                 });
@@ -34,7 +36,7 @@ class ListOfContract extends Component{
             }.bind(this),
             error: function(xhr, status, err) {
                 console.error(urlOnDataLoad, status, err.toString());
-            }.bind(this)
+            }
         });
     }
 
@@ -46,7 +48,7 @@ class ListOfContract extends Component{
             return;
         }
         $.ajax({
-            url: (urlOnFind + this.state.limit + '/' + this.findInput.value),
+            url: (urlOnFind + '10/' + this.findInput.value),
             dataType: 'json',
             cache: false,
             success: function(data) {
@@ -57,8 +59,12 @@ class ListOfContract extends Component{
             }.bind(this),
             error: function(xhr, status, err) {
                 console.error(urlOnDataLoad, status, err.toString());
-            }.bind(this)
+            }
         });
+    }
+
+    setLimit(event) {
+        this.state.limit = event.target.value;
     }
 
     render() {
@@ -85,7 +91,7 @@ class ListOfContract extends Component{
                         </div>
                     </li>
                     {this.props.contracts.map((contract) =>
-                        <li>
+                        <li key={contract.id}>
                             <div class="player-item">
                                 <a href="/" class="display-block padding-0">
                                     <span class="player-rating stream-col-50 text-center">{ contract.player.reiting }</span>
@@ -127,6 +133,14 @@ class ListOfContract extends Component{
                     )}
                 </ul>
                 <button onClick={this.addContracts.bind(this)}>More</button>
+                <div onChange={this.setLimit.bind(this)}>
+                    <input type="radio" value="10" name="gender"/> 10
+                    <input type="radio" value="20" name="gender"/> 20
+                    <input type="radio" value="30" name="gender"/> 30
+                    <input type="radio" value="40" name="gender"/> 40
+                    <input type="radio" value="50" name="gender"/> 50
+                </div>
+                <h1>LOL</h1>
             </div>
         );
     }

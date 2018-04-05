@@ -5,7 +5,6 @@ import ListOfContracts from './components/listOfContracts';
 
 class App extends Component {
   render() {
-    console.log(this.props.store);
     return (
       <div className="App">
           <ListOfContracts/>
