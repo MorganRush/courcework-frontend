@@ -140,7 +140,6 @@ class ListOfContract extends Component{
                     <input type="radio" value="40" name="gender"/> 40
                     <input type="radio" value="50" name="gender"/> 50
                 </div>
-                <h1>LOL</h1>
             </div>
         );
     }

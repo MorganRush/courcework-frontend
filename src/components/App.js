@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
-import './App.css';
+import './css/App.css';
 import { connect } from 'react-redux';
-import ListOfContracts from './components/listOfContracts';
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-          <ListOfContracts/>
+          лол
       </div>
     );
   }

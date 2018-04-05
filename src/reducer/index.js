@@ -1,6 +1,9 @@
 import { combineReducers } from 'redux'
-import  contracts from './component/contracts'
+import { routerReducer } from 'react-router-redux';
+
+import  contracts from './contracts'
 
 export default combineReducers({
-    contracts
-})
+    routing: routerReducer,
+    contracts,
+});
