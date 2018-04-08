@@ -1148,3 +1148,16 @@ const initialState = [
     }
 ];
 
+export default function playersOfTeam(state = initialState, action ) {
+    switch(action.type)
+    {
+        case 'ADD_PLAYERS_OF_TEAM':{
+            return [
+                ...state,
+                action.payload
+            ];
+        }
+        default: break;
+    }
+    return state;
+}

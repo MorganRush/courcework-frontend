@@ -3,6 +3,7 @@ import Img from 'react-image';
 import {connect} from 'react-redux';
 import './css/listOfContracts.css';
 import $ from "jquery";
+import {Link} from 'react-router-dom'
 import index from "../reducer";
 
 const urlOnDataLoad = "http://localhost:8000/main/contracts/";
@@ -17,6 +18,7 @@ class ListOfContract extends Component {
             limit: 10,
         };
     }
+
     componentDidMount() {
         window.addEventListener('scroll', this.handleScroll, true);
         this.addContracts();
@@ -86,19 +88,76 @@ class ListOfContract extends Component {
         this.state.limit = event.target.value;
     }
 
-    handleClick(){
-        alert('lol');
-        this.hiddenDiv.hidden = !this.hiddenDiv.hidden
-    }
-
     render() {
         console.log(this.props.store);
         return (
             <div className="ListOfContract">
-                <label>find</label>
-                <input type="text" ref={(input) => {this.findInput = input}}
-                       onChange={this.findContracts.bind(this)}/>
-                <ul>
+                <head>
+                    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"/>
+                    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
+                </head>
+                <nav class="navbar navbar-futhead navbar-fixed-top app-navbar">
+                <div class="container">
+                    <div class="navbar-header">
+                        <a href="javascript:;" class="navbar-toggle mobile-navbar-toggle">
+                                <i class="material-icons font-32 white">menu</i>
+                        </a>
+                    </div>
+                    <div class="navbar-collapse collapse" id="navbar-collapse-main">
+                        <ul class="nav navbar-nav hidden-sm hidden-xs">
+                            <li class="dropdown dropdown-hover with-fade only-text search-hide">
+                                {/*<Link class="dropdown-toggle disabled" data-toggle="dropdown" to="/players">Players</Link>*/}
+                                <a class="dropdown-toggle disabled" data-toggle="dropdown" href="/">Home</a>
+                            </li>
+                            <li class="dropdown dropdown-hover with-fade only-text search-hide">
+                                {/*<Link class="dropdown-toggle disabled" data-toggle="dropdown" to="/players">Players</Link>*/}
+                                <a class="dropdown-toggle disabled" data-toggle="dropdown" href="/players">Players</a>
+                            </li>
+                            <li class="dropdown dropdown-hover with-fade only-text search-hide">
+                                {/*<Link class="dropdown-toggle disabled" data-toggle="dropdown" to="/players">Players</Link>*/}
+                                <a class="dropdown-toggle disabled" data-toggle="dropdown" href="/countries">Nations</a>
+                            </li>
+                            <li class="dropdown dropdown-hover with-fade only-text search-hide">
+                                {/*<Link class="dropdown-toggle disabled" data-toggle="dropdown" to="/players">Players</Link>*/}
+                                <a class="dropdown-toggle disabled" data-toggle="dropdown" href="/teams">Clubs</a>
+                            </li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right navbar-personal hidden-sm hidden-xs search-hide">
+                            <li class="with-fade only-text">
+                                <a href="">Sign in</a>
+                            </li>
+                            <li class="with-fade only-text"><a class="text-gray">or</a></li>
+                            <li class="with-fade only-text">
+                                <a href="">Sign up</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                </nav>
+                <br/>
+                <br/>
+                {/*<div id="mobile-navbar" class="container hidden-lg hidden-md">*/}
+                    {/*<ul class="nav navbar-nav mobile-nav text-center">*/}
+                        {/*<li>*/}
+                            {/*<a href="/">Home</a>*/}
+                        {/*</li>*/}
+                        {/*<li><a href="/players">Players</a></li>*/}
+                        {/*<li><a href="/countries">Nations</a></li>*/}
+                        {/*<li><a href="/teams">Clubs</a></li>*/}
+                        {/*<li class="divider"></li>*/}
+                        {/*<li><a class="view-full" href="javascript:;">Switch to Desktop</a></li>*/}
+                        {/*<li><a href="">Login</a></li>*/}
+                    {/*</ul>*/}
+                {/*</div>*/}
+                <ul class="list-group">
+                    <li class="advansed-search padding-0">
+                        <div class="row obscure padding-15">
+                            <div class="col-md-10">
+                                <input class="filter form-control" type="text" placeholder="Filter By Name" ref={(input) => {this.findInput = input}}
+                                       onChange={this.findContracts.bind(this)}/>
+                            </div>
+                        </div>
+                    </li>
                     <li>
                         <div class="player-item">
                             <span class="stream-col-40">RAT</span>
@@ -115,7 +174,7 @@ class ListOfContract extends Component {
                         </div>
                     </li>
                     {this.props.contracts.map((contract) =>
-                        <li key={contract.id.toString()} onClick={this.handleClick.bind(this)}>
+                        <li key={contract.id.toString()}>
                             <div class="player-item">
                                 <div class="display-block padding-0">
                                     <span class="player-rating stream-col-50 text-center">{contract.reiting}</span>
@@ -153,20 +212,37 @@ class ListOfContract extends Component {
                                     </span>
                                 </div>
                             </div>
-                            <div hidden={true} ref={(hiddenDiv) => {this.hiddenDiv = hiddenDiv}}>
-                                <h1>лол</h1>
-                            </div>
                         </li>
                     )}
+                    <li>
+                        <button class="more-button" onClick={this.addContracts.bind(this)}>More</button>
+                        <div>
+                            Показывать по:
+                        </div>
+                        <div class="radios-as-buttons" onChange={this.setLimit.bind(this)}>
+                            <div>
+                                <input type="radio" value="10" name="gender" id="radio1"/>
+                                <label for="radio1">10</label>
+                            </div>
+                            <div>
+                                <input type="radio" value="20" name="gender" id="radio2"/>
+                                <label for="radio2">20</label>
+                            </div>
+                            <div>
+                                <input type="radio" value="30" name="gender" id="radio3"/>
+                                <label for="radio3">30</label>
+                            </div>
+                            <div>
+                                <input type="radio" value="40" name="gender" id="radio4"/>
+                                <label for="radio4">40</label>
+                            </div>
+                            <div>
+                                <input type="radio" value="50" name="gender" id="radio5"/>
+                                <label for="radio5">50</label>
+                            </div>
+                        </div>
+                    </li>
                 </ul>
-                <button onClick={this.addContracts.bind(this)}>More</button>
-                <div onChange={this.setLimit.bind(this)}>
-                    <input type="radio" value="10" name="gender"/> 10
-                    <input type="radio" value="20" name="gender"/> 20
-                    <input type="radio" value="30" name="gender"/> 30
-                    <input type="radio" value="40" name="gender"/> 40
-                    <input type="radio" value="50" name="gender"/> 50
-                </div>
             </div>
         );
     }

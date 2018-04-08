@@ -5,6 +5,7 @@ import  contracts from './contracts';
 import teams from './teams';
 import countries from './countries';
 import playersOfTeam from './playersOfTeam';
+import player from './player';
 
 export default combineReducers({
     routing: routerReducer,
@@ -12,4 +13,5 @@ export default combineReducers({
     teams,
     countries,
     playersOfTeam,
+    player,
 });
