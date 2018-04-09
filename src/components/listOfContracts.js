@@ -89,7 +89,7 @@ class ListOfContract extends Component {
                 this.state.offset++;
             }.bind(this),
             error: function (xhr, status, err) {
-                console.error(urlOnDataLoad, status, err.toString());
+                console.error(urlOnFind, status, err.toString());
             }
         });
     }
@@ -125,7 +125,6 @@ class ListOfContract extends Component {
 
                             <small>Best FUT 18 Players</small>
                         </h1>
-
                     </div>
                 </div>
                 <div class="content-table">
