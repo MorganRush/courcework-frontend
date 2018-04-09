@@ -19,13 +19,13 @@ ReactDOM.render(
     <Provider store={store}>
         <Router history={history}>
             <Route path="/" component={App}/>
-            <Route path="/players" component={ListOfContracts}>
+            <Route path="players" component={ListOfContracts}>
                 <Route path="/player/:id" component={Player}/>
             </Route>
-            <Route path="/teams" component={ListOfTeam}>
+            <Route path="teams" component={ListOfTeam}>
                 <Route path="/team/:id" component={Team}/>
             </Route>
-            <Route path="/countries" component={ListOfCountries}/>
+            <Route path="countries" component={ListOfCountries}/>
         </Router>
     </Provider>,
     document.getElementById('root')

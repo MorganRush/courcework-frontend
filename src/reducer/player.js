@@ -55,7 +55,23 @@ const initialState = {
         "id": 1,
         "name": "Cristiano Ronaldo",
         "createdAt": "2018-04-07T14:01:26.747Z",
-        "updatedAt": "2018-04-07T14:01:26.747Z"
+        "updatedAt": "2018-04-07T14:01:26.747Z",
+        "commentsPlayers": []
+    },
+    "team": {
+        "id": 5,
+        "name": "Real Madrid CF",
+        "refClubs": "https://futhead.cursecdn.com/static/img/18/clubs/243.png",
+        "createdAt": "2018-04-07T14:01:17.612Z",
+        "updatedAt": "2018-04-07T14:01:17.612Z",
+        "countryId": 1,
+        "country": {
+            "id": 1,
+            "name": null,
+            "refNations": "https://futhead.cursecdn.com/static/img/18/nations/38.png",
+            "createdAt": "2018-04-07T14:01:08.480Z",
+            "updatedAt": "2018-04-07T14:01:08.480Z"
+        }
     }
 };
 
