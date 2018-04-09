@@ -3,8 +3,7 @@ import Img from 'react-image';
 import {connect} from 'react-redux';
 import './css/listOfContracts.css';
 import $ from "jquery";
-import {Link} from 'react-router-dom'
-import index from "../reducer";
+import Head from './part/head';
 import ScrollEvent from 'react-onscroll';
 
 const urlOnDataLoad = "http://localhost:8000/main/contracts/";
@@ -103,52 +102,7 @@ class ListOfContract extends Component {
         return (
             <div className="ListOfContract">
                 <ScrollEvent handleScrollCallback={this.handleScrollCallback}/>
-                <head>
-                    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"/>
-                    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
-                </head>
-                <nav class="navbar navbar-futhead navbar-fixed-top app-navbar">
-                    <div class="container">
-                        <div class="navbar-header">
-                            <a href="javascript:;" class="navbar-toggle mobile-navbar-toggle">
-                                <i class="material-icons font-32 white">menu</i>
-                            </a>
-                        </div>
-                        <div class="navbar-collapse collapse" id="navbar-collapse-main">
-                            <ul class="nav navbar-nav hidden-sm hidden-xs">
-                                <li class="dropdown dropdown-hover with-fade only-text search-hide">
-                                    {/*<Link class="dropdown-toggle disabled" data-toggle="dropdown" to="/players">Players</Link>*/}
-                                    <a class="dropdown-toggle disabled" data-toggle="dropdown" href="/">Home</a>
-                                </li>
-                                <li class="dropdown dropdown-hover with-fade only-text search-hide">
-                                    {/*<Link class="dropdown-toggle disabled" data-toggle="dropdown" to="/players">Players</Link>*/}
-                                    <a class="dropdown-toggle disabled" data-toggle="dropdown"
-                                       href="/players">Players</a>
-                                </li>
-                                <li class="dropdown dropdown-hover with-fade only-text search-hide">
-                                    {/*<Link class="dropdown-toggle disabled" data-toggle="dropdown" to="/players">Players</Link>*/}
-                                    <a class="dropdown-toggle disabled" data-toggle="dropdown"
-                                       href="/countries">Nations</a>
-                                </li>
-                                <li class="dropdown dropdown-hover with-fade only-text search-hide">
-                                    {/*<Link class="dropdown-toggle disabled" data-toggle="dropdown" to="/players">Players</Link>*/}
-                                    <a class="dropdown-toggle disabled" data-toggle="dropdown" href="/teams">Clubs</a>
-                                </li>
-                            </ul>
-                            <ul class="nav navbar-nav navbar-right navbar-personal hidden-sm hidden-xs search-hide">
-                                <li class="with-fade only-text">
-                                    <a href="">Sign in</a>
-                                </li>
-                                <li class="with-fade only-text"><a class="text-gray">or</a></li>
-                                <li class="with-fade only-text">
-                                    <a href="">Sign up</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </nav>
-                <br/>
-                <br/>
+                <Head/>
                 <ul class="list-group">
                     <li class="advansed-search padding-0">
                         <div class="row obscure padding-15">
@@ -178,7 +132,7 @@ class ListOfContract extends Component {
                     </li>
                     {this.props.contracts.map((contract) =>
                         <li key={contract.id.toString()}>
-                            <div class="player-item">
+                            <a class="player-item" href={'/player/' + contract.id}>
                                 <div class="display-block padding-0">
                                     <span class="player-rating stream-col-50 text-center">{contract.reiting}</span>
                                     <span class="player-info">
@@ -214,7 +168,7 @@ class ListOfContract extends Component {
                                         </span>
                                     </span>
                                 </div>
-                            </div>
+                            </a>
                         </li>
                     )}
                     <li>

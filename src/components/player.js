@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Img from 'react-image';
 import { connect } from 'react-redux';
 import './css/listOfCountries.css';
+import Head from './part/head';
 
 class Player extends Component{
     constructor(props){
@@ -15,7 +16,7 @@ class Player extends Component{
     render() {
         return (
             <div>
-                <h1>лол</h1>
+                <Head/>
             </div>
         );
     }
