@@ -14,6 +14,79 @@
     display: inline-block;
     width: 80px;
 }
+body{
+    background-color:lightgray;
+}
+.content-table{
+    padding-left: 50px;
+    padding-right: 50px;
+}
+.site-header .container {
+    padding: 0 4px;
+}
+.slash.futhead {
+    background-image:url(../img/fifa18watermark.jpg);
+}
+.content-header-left {
+    padding-left: 100px;
+    display: inline-block;
+}
+.player-list-header {
+    margin-top: 4px;
+}
+.h1, h1 {
+    font-size: 36px;
+}
+.h1, .h2, .h3, h1, h2, h3 {
+    margin-top: 22px;
+    margin-bottom: 11px;
+}
+h1 small {
+    float: none;
+    display: block;
+    font-size: 16px;
+    line-height: 24px;
+    color: #ddd;
+}
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+    font-family: inherit;
+    font-weight: 600;
+    line-height: 1.2;
+    color: inherit;
+}
+h1 {
+    margin: 0;
+    float: none;
+    width: 475px;
+    display: block;
+    font-size: 40px;
+    line-height: 36px;
+    font-weight: 400;
+    text-transform: uppercase;
+}
+.slash {
+    background-size: auto 100%;
+    background-repeat: no-repeat;
+    background-image: url(../img/fifa18watermark.jpg);
+}
+.container {
+    margin-right: auto;
+    margin-left: auto;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+.content-header {
+    position: relative;
+    overflow-y: hidden;
+    color: #fff;
+    background-color: #211e57;
+}
+.inline-block{
+    display: inline-block;
+}
+.list-group{
+    background-color: white;
+}
 li {
     list-style-type: none;
 }
@@ -209,14 +282,14 @@ a:-webkit-any-link {
     margin: 20px auto;
     border-top: 1px solid #585858;
 }
-@media (min-width: 768px){
-    .navbar-fixed-bottom, .navbar-fixed-top {
-        border-radius: 0;
-    }}
-@media (min-width: 768px){
-    .navbar {
-        border-radius: 4px;
-    }}
+/*@media (min-width: 768px){*/
+    /*.navbar-fixed-bottom, .navbar-fixed-top {*/
+        /*border-radius: 0;*/
+    /*}}*/
+/*@media (min-width: 768px){*/
+    /*.navbar {*/
+        /*border-radius: 4px;*/
+    /*}}*/
 @media (min-width: 1260px){
     .container {
         width: 1230px;
@@ -484,6 +557,9 @@ a:-webkit-any-link {
     display: none;
     font-size: 10px;
     text-transform: uppercase;
+}
+.player-item{
+    border-top: 1px solid #eee;
 }
 img {
     vertical-align: middle;

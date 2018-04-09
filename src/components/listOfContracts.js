@@ -103,24 +103,50 @@ class ListOfContract extends Component {
             <div className="ListOfContract">
                 <ScrollEvent handleScrollCallback={this.handleScrollCallback}/>
                 <Head/>
-                <ul class="list-group">
-                    <li class="advansed-search padding-0">
-                        <div class="row obscure padding-15">
-                            <div class="col-md-10">
-                                <input class="filter form-control" type="text" placeholder="Filter By Name"
-                                       ref={(input) => {
-                                           this.findInput = input
-                                       }}
-                                       onChange={this.inputChange.bind(this)}/>
+                {/*<div id="mobile-navbar" class="container hidden-lg hidden-md">*/}
+                {/*<ul class="nav navbar-nav mobile-nav text-center">*/}
+                {/*<li>*/}
+                {/*<a href="/">Home</a>*/}
+                {/*</li>*/}
+                {/*<li><a href="/players">Players</a></li>*/}
+                {/*<li><a href="/countries">Nations</a></li>*/}
+                {/*<li><a href="/teams">Clubs</a></li>*/}
+                {/*<li class="divider"></li>*/}
+                {/*<li><a class="view-full" href="javascript:;">Switch to Desktop</a></li>*/}
+                {/*<li><a href="">Login</a></li>*/}
+                {/*</ul>*/}
+                {/*</div>*/}
+                <div class="content-header">
+                    <div class="content-header-left slash futhead">
+                        <h1 class="player-list-header">
+                            <small>FIFA 18 Database</small>
+
+                            Top Players
+
+                            <small>Best FUT 18 Players</small>
+                        </h1>
+
+                    </div>
+                </div>
+                <div class="content-table">
+                    <ul class="list-group">
+                        <li class="advansed-search padding-0">
+                            <div class="row obscure padding-15">
+                                <div class="col-md-10">
+                                    <input class="filter form-control" type="text" placeholder="Filter By Name"
+                                           ref={(input) => {
+                                               this.findInput = input
+                                           }}
+                                           onChange={this.inputChange.bind(this)}/>
+                                </div>
                             </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="player-item">
-                            <span class="stream-col-40">RAT</span>
-                            <span class="stream-col-80"></span>
-                            <span class="stream-col-60">Name</span>
-                            <span class="pull-right padding-l-r-14">
+                        </li>
+                        <li>
+                            <div class="player-item">
+                                <span class="stream-col-40">RAT</span>
+                                <span class="stream-col-80"></span>
+                                <span class="stream-col-60">Name</span>
+                                <span class="pull-right padding-l-r-14">
                                 <span class="stream-col-60">PAC</span>
                                 <span class="stream-col-60">SHO</span>
                                 <span class="stream-col-60">PAS</span>
@@ -128,20 +154,20 @@ class ListOfContract extends Component {
                                 <span class="stream-col-60">DEF</span>
                                 <span class="stream-col-60">PHY</span>
                             </span>
-                        </div>
-                    </li>
-                    {this.props.contracts.map((contract) =>
-                        <li key={contract.id.toString()}>
-                            <a class="player-item" href={'/player/' + contract.id}>
-                                <div class="display-block padding-0">
-                                    <span class="player-rating stream-col-50 text-center">{contract.reiting}</span>
-                                    <span class="player-info">
+                            </div>
+                        </li>
+                        {this.props.contracts.map((contract) =>
+                            <li key={contract.id.toString()}>
+                                <a class="player-item" href={'/player/' + contract.id}>
+                                    <div class="display-block padding-0">
+                                        <span class="player-rating stream-col-50 text-center">{contract.reiting}</span>
+                                        <span class="player-info">
                                         <Img class="player-image" src={contract.refImage}/>
                                         <Img class="player-club" src={contract.team.refClubs}/>
                                         <Img class="player-nation" src={contract.team.country.refNations}/>
                                         <span class="player-name">{contract.player.name}</span>
                                     </span>
-                                    <span class="pull-right padding-l-r-14">
+                                        <span class="pull-right padding-l-r-14">
                                         <span class="player-stat stream-col-60">
                                             <span class="value">{contract.pac}</span>
                                             <span class="hover-label">PAC</span>
@@ -167,14 +193,15 @@ class ListOfContract extends Component {
                                             <span class="hover-label">PHY</span>
                                         </span>
                                     </span>
-                                </div>
-                            </a>
+                                    </div>
+                                </a>
+                            </li>
+                        )}
+                        <li>
+                            <button class="more-button" onClick={this.addContracts.bind(this)}>More</button>
                         </li>
-                    )}
-                    <li>
-                        <button class="more-button" onClick={this.addContracts.bind(this)}>More</button>
-                    </li>
-                </ul>
+                    </ul>
+                </div>
             </div>
         );
     }

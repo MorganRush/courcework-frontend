@@ -14,6 +14,18 @@ class ListOfCountries extends Component{
         return (
             <div className="ListOfCountries">
                 <Head/>
+                <div class="content-header">
+                    <div class="content-header-left slash futhead">
+                        <h1 class="player-list-header">
+                            <small>FIFA 18 DATABASE</small>
+
+                            NATIONS
+
+                            <small>ALL THE BIGGEST FIFA 18 NATIONS</small>
+                        </h1>
+                    </div>
+                </div>
+                <div class="content-table">
                 <ul class="list-group">
                     <li>
                         <div class="county-item">
@@ -21,7 +33,7 @@ class ListOfCountries extends Component{
                             <span class="stream-col-60">Name</span>
                         </div>
                     </li>
-                    {this.props.countries.map((country) =>
+                    {this.props.store.countries.map((country) =>
                         <li>
                             <div class="country-item">
                                 <a href="/" class="display-block padding-0">
@@ -34,6 +46,7 @@ class ListOfCountries extends Component{
                         </li>
                     )}
                 </ul>
+                </div>
             </div>
         );
     }
@@ -41,7 +54,7 @@ class ListOfCountries extends Component{
 
 export default connect(
     state => ({
-        countries: state.countries
+        store: state
     }),
     dispatch => ({})
 )(ListOfCountries);
