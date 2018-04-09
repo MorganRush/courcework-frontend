@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import '../css/App.css';
+import ModalAuthentication from './modalAuthentication'
 import RegistrationWindow from './registrationWindow';
 import AuthorizationWindow from './authorizationWindow';
 
@@ -39,11 +40,10 @@ class Head extends Component {
                             </ul>
                             <ul class="nav navbar-nav navbar-right navbar-personal hidden-sm hidden-xs search-hide">
                                 <li class="with-fade only-text">
-                                    <AuthorizationWindow/>
+                                    <ModalAuthentication/>
                                 </li>
                                 <li class="with-fade only-text"><a class="text-gray">or</a></li>
                                 <li class="with-fade only-text">
-                                    <RegistrationWindow/>
                                 </li>
                             </ul>
                         </div>

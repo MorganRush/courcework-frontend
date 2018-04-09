@@ -12,6 +12,7 @@ import ListOfTeam from './components/listOfTeam';
 import ListOfCountries from './components/listOfCountries';
 import Player from './components/player';
 import Team from './components/team';
+import ModalAuthentication from './components/part/modalAuthentication';
 
 const history = syncHistoryWithStore(browserHistory, store);
 
@@ -24,6 +25,7 @@ ReactDOM.render(
             <Route path="teams" component={ListOfTeam}/>
             <Route path="/team/:id" component={Team}/>
             <Route path="countries" component={ListOfCountries}/>
+            <Route path="/page" component={ModalAuthentication}/>
         </Router>
     </Provider>,
     document.getElementById('root')
