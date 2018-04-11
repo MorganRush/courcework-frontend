@@ -7,7 +7,6 @@ import Head from './part/head';
 import ScrollEvent from 'react-onscroll';
 
 const urlOnDataLoad = "http://localhost:8000/main/contracts/";
-const urlOnFind = "http://localhost:8000/main/contracts/like/";
 
 class ListOfContract extends Component {
     constructor() {
@@ -15,12 +14,23 @@ class ListOfContract extends Component {
         this.state = {
             offset: 0,
             limit: 10,
+            urlOnFind: urlOnDataLoad + 'like/',
+            urlOnDataLoad: urlOnDataLoad,
         };
         this.handleScrollCallback = this.handleScrollCallback.bind(this);
         this.findContracts = this.findContracts.bind(this);
     }
 
     componentDidMount() {
+        if(this.props.params.teamId != undefined){
+            this.state.urlOnDataLoad =  urlOnDataLoad + 'team/' + this.props.params.teamId + '/';
+            this.state.urlOnFind = urlOnDataLoad + 'team/like/' + this.props.params.teamId + '/';
+        }
+        else if (this.props.params.countryId != undefined){
+            console.log('lol');
+            this.state.urlOnDataLoad =  urlOnDataLoad + 'country/' + this.props.params.countryId + '/';
+            this.state.urlOnFind = urlOnDataLoad + 'country/like/' + this.props.params.countryId + '/';
+        }
         this.addContracts();
     };
 
@@ -56,7 +66,7 @@ class ListOfContract extends Component {
 
     addContracts() {
         $.ajax({
-            url: (urlOnDataLoad + this.state.limit + '/' + this.state.offset),
+            url: (this.state.urlOnDataLoad + this.state.limit + '/' + this.state.offset),
             dataType: 'json',
             cache: false,
             success: function (data) {
@@ -76,7 +86,7 @@ class ListOfContract extends Component {
 
     findContracts() {
         $.ajax({
-            url: (urlOnFind + this.state.limit + '/' + this.state.offset + '/' + this.findInput.value),
+            url: (this.state.urlOnFind + this.state.limit + '/' + this.state.offset + '/' + this.findInput.value),
             dataType: 'json',
             cache: false,
             success: function (data) {
@@ -89,7 +99,7 @@ class ListOfContract extends Component {
                 this.state.offset++;
             }.bind(this),
             error: function (xhr, status, err) {
-                console.error(urlOnFind, status, err.toString());
+                console.error(this.state.urlOnFind, status, err.toString());
             }
         });
     }

@@ -122,9 +122,9 @@ class ListOfCountries extends Component {
                             </div>
                         </li>
                         {this.props.countries.map((country) =>
-                            <li>
+                            <li key={country.id.toString()}>
                                 <div class="country-item">
-                                    <a href="/" class="display-block padding-0">
+                                    <a href={"/players/country/" + country.id} class="display-block padding-0">
                                         <Img class="country-image" src={country.refNations}/>
                                         <span class="country-info">
                                         <span class="country-name">{country.name}</span>

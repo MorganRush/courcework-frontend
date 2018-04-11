@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 const styles = {
     form: {
-        position: 'absolute',
         width: 150,
         height: 100,
     },

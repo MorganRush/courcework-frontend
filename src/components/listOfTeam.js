@@ -121,9 +121,9 @@ class ListOfTeams extends Component{
                         </div>
                     </li>
                     {this.props.teams.map((team) =>
-                        <li>
+                        <li key={team.id.toString()}>
                             <div class="team-item">
-                                <a href={'/team/' + team.id} class="display-block padding-0">
+                                <a href={'/players/team/' + team.id} class="display-block padding-0">
                                     <Img class="team-image" src={team.refClubs}/>
                                     <span class="team-info">
                                         <span class="team-name">{ team.name }</span>

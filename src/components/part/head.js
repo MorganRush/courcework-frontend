@@ -40,10 +40,11 @@ class Head extends Component {
                             </ul>
                             <ul class="nav navbar-nav navbar-right navbar-personal hidden-sm hidden-xs search-hide">
                                 <li class="with-fade only-text">
-                                    <ModalAuthentication/>
+                                    <a href="">Sign in</a>
                                 </li>
                                 <li class="with-fade only-text"><a class="text-gray">or</a></li>
                                 <li class="with-fade only-text">
+                                    <a href="">Sign up</a>
                                 </li>
                             </ul>
                         </div>

@@ -21,6 +21,8 @@ ReactDOM.render(
         <Router history={history}>
             <Route path="/" component={App}/>
             <Route path="players" component={ListOfContracts}/>
+            <Route path="players/team/:teamId" component={ListOfContracts}/>
+            <Route path="players/country/:countryId" component={ListOfContracts}/>
             <Route path="/player/:id" component={Player}/>
             <Route path="teams" component={ListOfTeam}/>
             <Route path="/team/:id" component={Team}/>
