@@ -4,16 +4,12 @@ import './index.css';
 import App from './components/App';
 import { Provider } from 'react-redux'
 import store from './store'
-import registerServiceWorker from './registerServiceWorker';
 import { Router, Route, browserHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux'
 import ListOfContracts from './components/listOfContracts';
 import ListOfTeam from './components/listOfTeam';
 import ListOfCountries from './components/listOfCountries';
 import Player from './components/player';
-import Team from './components/team';
-import ModalAuthentication from './components/part/modalAuthentication';
-import Head from './components/part/head';
 
 const history = syncHistoryWithStore(browserHistory, store);
 
@@ -25,13 +21,9 @@ ReactDOM.render(
             <Route path="/players/team/:teamId" component={ListOfContracts}/>
             <Route path="/players/country/:countryId" component={ListOfContracts}/>
             <Route path="/player/:id" component={Player}/>
-            <Route path="teams" component={ListOfTeam}/>
-            <Route path="/team/:id" component={Team}/>
+            <Route path="/teams" component={ListOfTeam}/>
             <Route path="/countries" component={ListOfCountries}/>
-            <Route path="/page" component={ModalAuthentication}/>
-            <Route path="/head" component={Head}/>
         </Router>
     </Provider>,
     document.getElementById('root')
 );
-registerServiceWorker();
