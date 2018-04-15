@@ -2,12 +2,42 @@ import React, {Component} from 'react';
 import './css/App.css';
 import {connect} from 'react-redux';
 import Head from './part/head';
+import $ from "jquery";
+
+const urlOnUserName = "http://localhost:8000/main/user/";
 
 class App extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            isAuth: false,
+            login: '',
+        };
+        this.loadName = this.loadName.bind(this);
+    }
+
+    loadName() {
+        $.ajax({
+            url: (urlOnUserName),
+            dataType: 'json',
+            cache: false,
+            success: function (data) {
+                console.log(data);
+                if (data.login != null){
+                    this.state.isAuth = true;
+                    this.state.login = data.login;
+                }
+            }.bind(this),
+            error: function (xhr, status, err) {
+                console.error(urlOnUserName, status, err.toString());
+            }
+        });
+    }
+
     render() {
         return (
             <div className="App">
-                <Head/>
+                <Head login = {this.state.login} isAuth={this.state.isAuth}/>
                 <div class="homepage col-lg-12 text-center ">
                     <div class="walkway-oblique oblique welcome">Welcome to PIPFUT!</div>
                     <div>

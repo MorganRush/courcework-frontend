@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
 import '../css/App.css';
-import ModalAuthentication from './modalAuthentication'
-import RegistrationWindow from './registrationWindow';
-import AuthorizationWindow from './authorizationWindow';
 
 class Head extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            isAuth: props.isAuth,
+            login: props.login,
+        };
+    }
+
     render() {
         return (
             <div className="App">
@@ -38,13 +43,21 @@ class Head extends Component {
                                     <a class="dropdown-toggle disabled" data-toggle="dropdown" href="/teams">Clubs</a>
                                 </li>
                             </ul>
-                            <ul class="nav navbar-nav navbar-right navbar-personal hidden-sm hidden-xs search-hide">
+                            <ul class="nav navbar-nav navbar-right navbar-personal hidden-sm hidden-xs search-hide" hidden={this.state.isAuth}>
                                 <li class="with-fade only-text">
                                     <a href="">Sign in</a>
                                 </li>
                                 <li class="with-fade only-text"><a class="text-gray">or</a></li>
                                 <li class="with-fade only-text">
                                     <a href="">Sign up</a>
+                                </li>
+                            </ul>
+                            <ul class="nav navbar-nav navbar-right navbar-personal hidden-sm hidden-xs search-hide" hidden={!this.state.isAuth}>
+                                <li class="with-fade only-text">
+                                    <a href="">Favorites</a>
+                                </li>
+                                <li class="with-fade only-text">
+                                    <div>{this.state.login}</div>
                                 </li>
                             </ul>
                         </div>

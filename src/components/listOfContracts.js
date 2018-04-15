@@ -7,6 +7,7 @@ import Head from './part/head';
 import ScrollEvent from 'react-onscroll';
 
 const urlOnDataLoad = "http://localhost:8000/main/contracts/";
+const urlOnUserName = "http://localhost:8000/main/user/";
 
 class ListOfContract extends Component {
     constructor() {
@@ -16,12 +17,19 @@ class ListOfContract extends Component {
             limit: 10,
             urlOnFind: urlOnDataLoad + 'like/',
             urlOnDataLoad: urlOnDataLoad,
+            isAuth: false,
+            login: '',
+            isFavorite: true,
         };
+        this.loadName = this.loadName.bind(this);
         this.handleScrollCallback = this.handleScrollCallback.bind(this);
         this.findContracts = this.findContracts.bind(this);
     }
 
+    isFavorite = true;
+
     componentDidMount() {
+        this.loadName();
         if(this.props.params.teamId != undefined){
             this.state.urlOnDataLoad =  urlOnDataLoad + 'team/' + this.props.params.teamId + '/';
             this.state.urlOnFind = urlOnDataLoad + 'team/like/' + this.props.params.teamId + '/';
@@ -104,8 +112,22 @@ class ListOfContract extends Component {
         });
     }
 
-    setLimit(event) {
-        this.state.limit = event.target.value;
+    loadName() {
+        $.ajax({
+            url: (urlOnUserName),
+            dataType: 'json',
+            cache: false,
+            success: function (data) {
+                console.log(data);
+                if (data.login != null){
+                    this.state.isAuth = true;
+                    this.state.login = data.login;
+                }
+            }.bind(this),
+            error: function (xhr, status, err) {
+                console.error(urlOnUserName, status, err.toString());
+            }
+        });
     }
 
     render() {
@@ -162,6 +184,7 @@ class ListOfContract extends Component {
                                 <span class="stream-col-60">DRI</span>
                                 <span class="stream-col-60">DEF</span>
                                 <span class="stream-col-60">PHY</span>
+                                <span class="stream-col-60" hidden={!this.isAuth}>FAV</span>
                             </span>
                             </div>
                         </li>
@@ -173,7 +196,7 @@ class ListOfContract extends Component {
                                         <span class="player-info">
                                         <Img class="player-image" src={contract.refImage}/>
                                         <Img class="player-club" src={contract.team.refClubs}/>
-                                        <Img class="player-nation" src={contract.team.country.refNations}/>
+                                        <Img class="player-nation" src={contract.player.country.refNations}/>
                                         <span class="player-name">{contract.player.name}</span>
                                     </span>
                                         <span class="pull-right padding-l-r-14">
@@ -200,6 +223,12 @@ class ListOfContract extends Component {
                                         <span class="player-stat stream-col-60">
                                             <span class="value">{contract.phy}</span>
                                             <span class="hover-label">PHY</span>
+                                        </span>
+                                        <span class="player-stat stream-col-60">
+                                            <span class="value" hidden={!this.state.isAuth}>
+                                                <div hidden={this.isFavorite}><i class="material-icons" >favorite_border</i></div>
+                                                <div hidden={!this.isFavorite}><i class="material-icons" >favorite</i></div>
+                                            </span>
                                         </span>
                                     </span>
                                     </div>

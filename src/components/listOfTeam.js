@@ -8,6 +8,7 @@ import ScrollEvent from 'react-onscroll';
 
 const urlOnDataLoad = "http://localhost:8000/main/teams/";
 const urlOnFind = "http://localhost:8000/main/teams/like/";
+const urlOnUserName = "http://localhost:8000/main/user/";
 
 class ListOfTeams extends Component{
     constructor(props){
@@ -15,7 +16,10 @@ class ListOfTeams extends Component{
         this.state = {
             offset: 0,
             limit: 10,
+            isAuth: false,
+            login: '',
         };
+        this.loadName = this.loadName.bind(this);
         this.handleScrollCallback = this.handleScrollCallback.bind(this);
         this.findTeams = this.findTeams.bind(this);
     }
@@ -85,11 +89,29 @@ class ListOfTeams extends Component{
         });
     }
 
+    loadName() {
+        $.ajax({
+            url: (urlOnUserName),
+            dataType: 'json',
+            cache: false,
+            success: function (data) {
+                console.log(data);
+                if (data.login != null){
+                    this.state.isAuth = true;
+                    this.state.login = data.login;
+                }
+            }.bind(this),
+            error: function (xhr, status, err) {
+                console.error(urlOnUserName, status, err.toString());
+            }
+        });
+    }
+
     render() {
         return (
             <div className="ListOfTeams">
                 <ScrollEvent handleScrollCallback={this.handleScrollCallback}/>
-                <Head/>
+                <Head login = {this.state.login} isAuth={this.state.isAuth}/>
                 <div class="content-header">
                     <div class="content-header-left slash futhead">
                         <h1 class="player-list-header">
@@ -127,8 +149,6 @@ class ListOfTeams extends Component{
                                     <Img class="team-image" src={team.refClubs}/>
                                     <span class="team-info">
                                         <span class="team-name">{ team.name }</span>
-                                        <Img class="team-country-image" src={team.country.refNations}/>
-                                        <span class="team-country">{team.country.name}</span>
                                     </span>
                                 </a>
                             </div>

@@ -9,10 +9,16 @@ import player from "../reducer/player";
 import $ from "jquery";
 
 const urlOnDataLoad = "http://localhost:8000/main/contracts/";
+const urlOnUserName = "http://localhost:8000/main/user/";
 
 class Player extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            isAuth: false,
+            login: '',
+        };
+        this.loadName = this.loadName.bind(this);
         this.addPlayer = this.addPlayer.bind(this);
     }
 
@@ -37,10 +43,28 @@ class Player extends Component {
         });
     }
 
+    loadName() {
+        $.ajax({
+            url: (urlOnUserName),
+            dataType: 'json',
+            cache: false,
+            success: function (data) {
+                console.log(data);
+                if (data.login != null){
+                    this.state.isAuth = true;
+                    this.state.login = data.login;
+                }
+            }.bind(this),
+            error: function (xhr, status, err) {
+                console.error(urlOnUserName, status, err.toString());
+            }
+        });
+    }
+
     render() {
         return (
             <div>
-                <Head/>
+                <Head login = {this.state.login} isAuth={this.state.isAuth}/>
                 <ul>
                     {this.props.state.map((state) =>
                         <li key={state.id.toString()}>
@@ -78,10 +102,10 @@ class Player extends Component {
 
                                                     Nation
                                                     <span class="pull-right"><img class="img-12"
-                                                                                  src={state.team.country.refNations}/></span>
+                                                                                  src={state.player.country.refNations}/></span>
                                                 </div>
                                                 <div
-                                                    class="col-xs-5 player-sidebar-value">{state.team.country.name}</div>
+                                                    class="col-xs-5 player-sidebar-value">{state.player.country.name}</div>
                                             </div>
                                             <div class="row player-sidebar-item">
                                                 <div class="col-xs-7">
@@ -300,6 +324,17 @@ class Player extends Component {
                                     </div>
                                 </div>
                             </div>
+                            <form hidden={!this.state.isAuth}>
+                                <div class="player-group border-rad-5 border-top-none com-add-field">
+                                    <textarea class="border-rad-5 width-80 outline-none" placeholder="Add a Comment"></textarea>
+                                    <button class="outline-none com-add-btn border-rad-5" type="submit">submit</button>
+                                </div>
+                            </form>
+                            <div>
+                                {this.props.state[0].player.commentsPlayers.map(comment =>
+                                    <div class="player-group border-rad-5 border-top-none"><div class="comment-header">{comment}<div class="comment-body">{comment}</div></div></div>
+                                )}
+                            </div>
                         </li>
                     )}
                 </ul>
@@ -310,7 +345,7 @@ class Player extends Component {
 
 export default connect(
     state => ({
-        state: state.player,
+        state: state.contract,
     }),
     dispatch => ({
         onAddPlayer: (player) => {

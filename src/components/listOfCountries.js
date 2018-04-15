@@ -8,6 +8,7 @@ import ScrollEvent from 'react-onscroll';
 
 const urlOnDataLoad = "http://localhost:8000/main/countries/";
 const urlOnFind = "http://localhost:8000/main/countries/like/";
+const urlOnUserName = "http://localhost:8000/main/user/";
 
 class ListOfCountries extends Component {
     constructor(props) {
@@ -15,7 +16,10 @@ class ListOfCountries extends Component {
         this.state = {
             offset: 0,
             limit: 10,
+            isAuth: false,
+            login: '',
         };
+        this.loadName = this.loadName.bind(this);
         this.handleScrollCallback = this.handleScrollCallback.bind(this);
         this.findCountries = this.findCountries.bind(this);
     }
@@ -85,12 +89,30 @@ class ListOfCountries extends Component {
         });
     }
 
+    loadName() {
+        $.ajax({
+            url: (urlOnUserName),
+            dataType: 'json',
+            cache: false,
+            success: function (data) {
+                console.log(data);
+                if (data.login != null){
+                    this.state.isAuth = true;
+                    this.state.login = data.login;
+                }
+            }.bind(this),
+            error: function (xhr, status, err) {
+                console.error(urlOnUserName, status, err.toString());
+            }
+        });
+    }
+
     render() {
         console.log(this.props.store);
         return (
             <div className="ListOfCountries">
                 <ScrollEvent handleScrollCallback={this.handleScrollCallback}/>
-                <Head/>
+                <Head login = {this.state.login} isAuth={this.state.isAuth}/>
                 <div class="content-header">
                     <div class="content-header-left slash futhead">
                         <h1 class="player-list-header">
